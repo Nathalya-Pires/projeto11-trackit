@@ -6,7 +6,7 @@ export default function NavBar(){
     return(
         <Container>
             <Logo src={trackIt} alt="TrackIt"/>
-            <FotoUser scr={bob} alt="foto do usuário"/>
+            <Foto scr={bob} alt="foto do usuário"/>
         </Container>
     )
 }
@@ -22,7 +22,7 @@ const Container = styled.div`
 const Logo = styled.img`
     margin: 0 191px 0 18px;
 `
-const FotoUser = styled.div`
+const Foto = styled.img`
 width: 51px;
 height: 51px;
 border-radius: 98.5px;
