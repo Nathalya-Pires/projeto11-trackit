@@ -6,12 +6,12 @@ export default function HomePage() {
     <Container>
       <Logo src={logo} alt={"foto de TracKIt"} />
       <Login>
-        <Email>
+        <label>
           <input type="email" minLength={5} required placeholder="email" />
-        </Email>
-        <Senha>
+        </label>
+        <label>
           <input type="password" minLength={5} required placeholder="senha" />
-        </Senha>
+        </label>
         <Entrar>Entrar</Entrar>
       </Login>
       <p>Não tem uma conta? Cadastre-se!</p>
@@ -20,33 +20,68 @@ export default function HomePage() {
 }
 
 const Container = styled.div`
-  background-color: blue;
+  background-color: #ffffff;
+  width: 375px;
+  height: 667px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   p {
-    width: 232px;
-    height: 17px;
     font-family: "Lexend Deca";
     font-style: normal;
     font-weight: 400;
-    font-size: 13.976px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 17.5px;
     text-align: center;
     text-decoration-line: underline;
     color: #52b6ff;
   }
 `;
 const Logo = styled.img`
-  max-width: 180px;
-  background-color: red;
-  color: blue;
+  width: 180px;
+  margin: 68px 98px 32px 97px;
 `;
 const Login = styled.form`
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  input {
+    width: 303px;
+    height: 45px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    margin-bottom: 1%;
+
+    ::placeholder {
+      font-family: "Lexend Deca";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 19.98px;
+      line-height: 25px;
+      color: #dbdbdb;
+      padding-left: 11px;
+    }
+  }
 `;
-const Email = styled.label``;
-const Senha = styled.label``;
-const Entrar = styled.button``;
+const Entrar = styled.button`
+  width: 303px;
+  height: 45px;
+  margin: 3px 0 25px 0;
+  background: #52b6ff;
+  border: none;
+  border-radius: 4.64px;
+
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  text-align: center;
+  color: #ffffff;
+`;
