@@ -1,7 +1,6 @@
-import {
-    buildStyles, CircularProgressbar
-} from "react-circular-progressbar";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Menu() {
@@ -9,23 +8,29 @@ export default function Menu() {
 
   return (
     <Container>
-      <Habitos>Hábitos</Habitos>
-      <Hoje>
-        <CircularProgressbar
-          value={hoje}
-          text={`Hoje`}
-          background
-          backgroundPadding={5}
-          styles={buildStyles({
-            backgroundColor: "#52B6FF",
-            textColor: "#fff",
-            pathColor: "#fff",
-            trailColor: "transparent",
-            textSize: "18px",
-          })}
-        />
-      </Hoje>
-      <Historico>Histórico</Historico>
+      <Habitos>
+        <Link to={"/habitos"}>Hábitos</Link>
+      </Habitos>
+      <Link to={"/hoje"}>
+        <Hoje>
+          <CircularProgressbar
+            value={hoje}
+            text={`Hoje`}
+            background
+            backgroundPadding={5}
+            styles={buildStyles({
+              backgroundColor: "#52B6FF",
+              textColor: "#fff",
+              pathColor: "#fff",
+              trailColor: "transparent",
+              textSize: "18px",
+            })}
+          />
+        </Hoje>
+      </Link>
+      <Historico>
+        <Link to={"/historico"}> Histórico </Link>
+      </Historico>
     </Container>
   );
 }
@@ -33,7 +38,7 @@ export default function Menu() {
 const Container = styled.div`
   width: 375px;
   height: 70px;
-  background: #FFFFFF;
+  background: #ffffff;
   position: absolute;
   bottom: 0;
   display: flex;
@@ -49,12 +54,13 @@ const Container = styled.div`
   color: #52b6ff;
 `;
 const Habitos = styled.div`
-margin: 0 31px 0 32px;
+  margin: 0 31px 0 32px;
 `;
 const Hoje = styled.div`
   width: 91px;
   margin-bottom: 40px;
+  border-radius: 91px;
 `;
 const Historico = styled.div`
-margin: 0 31px 0 32px;
+  margin: 0 31px 0 32px;
 `;

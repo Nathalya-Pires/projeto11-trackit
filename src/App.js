@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Menu from "./components/Menu";
 import Cadastro from "./pages/Cadastro";
 import Habitos from "./pages/Habitos";
 import Historico from "./pages/Historico";

@@ -48,5 +48,9 @@ table {
 	box-sizing: border-box;
 	text-decoration: none;
 }
+a{
+    color:inherit;
+  }
+
 `
 export default GlobalStyle
