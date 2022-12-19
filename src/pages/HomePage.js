@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 
@@ -12,7 +13,9 @@ export default function HomePage() {
         <label>
           <input type="password" minLength={5} required placeholder="senha" />
         </label>
-        <Entrar>Entrar</Entrar>
+        <Entrar>
+          <Link to="/hoje">Entrar</Link>
+        </Entrar>
       </Login>
       <p>Não tem uma conta? Cadastre-se!</p>
     </Container>
@@ -84,4 +87,10 @@ const Entrar = styled.button`
   line-height: 26px;
   text-align: center;
   color: #ffffff;
+
+  a{
+    color:inherit;
+  }
+
+
 `;

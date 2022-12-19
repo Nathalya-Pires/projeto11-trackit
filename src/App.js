@@ -1,3 +1,5 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Menu from "./components/Menu";
 import Cadastro from "./pages/Cadastro";
 import Habitos from "./pages/Habitos";
 import Historico from "./pages/Historico";
@@ -7,12 +9,16 @@ import HomePage from "./pages/HomePage";
 function App() {
   return (
     <>
-      <HomePage />
-      {/* <Cadastro />
-      <Habitos/>
-      <Hoje/>
-      <Historico/> */}
-        </>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/habitos" element={<Habitos />} />
+          <Route path="/hoje" element={<Hoje />} />
+          <Route path="/historico" element={<Historico />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

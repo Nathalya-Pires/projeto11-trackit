@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import IonIcon from "@reacticons/ionicons";
+import Menu from "../components/Menu";
 
 export default function Hoje() {
   return (
@@ -24,6 +25,7 @@ export default function Hoje() {
             </Check>
           </ListaHab>
         </ContainerHabitos>
+        <Menu />
       </Container>
     </>
   );
@@ -45,6 +47,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 const ListaHab = styled.div`
   display: flex;

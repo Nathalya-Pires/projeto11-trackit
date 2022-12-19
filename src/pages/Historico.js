@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Menu from "../components/Menu";
 import NavBar from "../components/NavBar";
 
 export default function Historico() {
@@ -11,6 +12,7 @@ export default function Historico() {
         </Hist>
         <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
       </ContainerHistorico>
+      <Menu />
     </Container>
   );
 }
@@ -23,6 +25,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const ContainerHistorico = styled.div`

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import vetor from "../assets/vetor.png";
+import Menu from "../components/Menu";
 
 export default function Habitos() {
   return (
@@ -53,6 +54,7 @@ export default function Habitos() {
           </Semana>
         </ListaHab>
       </ContainerHabitos>
+      <Menu/>
     </Container>
   );
 }
@@ -172,6 +174,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 const ContainerHabitos = styled.div`
   width: 90%;
