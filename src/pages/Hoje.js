@@ -78,11 +78,11 @@ export default function Hoje() {
             <ListaHab data-test="today-habit-container" key={d.id}>
               <ContainerTarefa>
                 <Tarefa data-test="today-habit-name">{d.name}</Tarefa>
-                <TextoFixo data-test="today-habit-sequence">Sequência atual:</TextoFixo>
-                <TextoApi feito={d.done}> {d.currentSequence} dias</TextoApi>
+                <TextoFixo>Sequência atual:</TextoFixo>
+                <TextoApi data-test="today-habit-sequence" feito={d.done}> {d.currentSequence} dias</TextoApi>
                 <br />
-                <TextoFixo data-test="today-habit-record">Seu recorde:</TextoFixo>
-                <TextoApi feito={d.done}> {d.highestSequence} dias</TextoApi>
+                <TextoFixo>Seu recorde:</TextoFixo>
+                <TextoApi data-test="today-habit-record" feito={d.done}> {d.highestSequence} dias</TextoApi>
               </ContainerTarefa>
 
               <Check data-test="today-habit-check-btn" feito={d.done}>

@@ -9,7 +9,7 @@ export default function Menu() {
   const {progresso} = useContext(context);
 
   return (
-    <Container>
+    <Container data-test="menu">
       <Habitos>
         <Link data-test="habit-link" to={"/habitos"}>Hábitos</Link>
       </Habitos>

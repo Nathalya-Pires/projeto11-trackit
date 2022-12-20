@@ -7,7 +7,7 @@ export default function NavBar() {
   const { imagem } = useContext(context);
 
   return (
-    <Container>
+    <Container data-test="header">
       <Logo src={trackIt} alt="TrackIt" />
       <Foto img src={imagem} alt="nova fotinha" />
     </Container>

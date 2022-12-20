@@ -63,6 +63,7 @@ export default function Habitos() {
         </Hab>
           { botaoAdd === true ?(<IncluirHab data-test="habit-create-container" onSubmit={enviaHabito}>
           <input
+            required
             disabled={desabilita}
             type="text"
             name="name"
@@ -163,7 +164,7 @@ const Semana = styled.div`
 const Container = styled.div`
   background-color: #f2f2f2;
   width: 375px;
-  height: 100%;
+  height: 667px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

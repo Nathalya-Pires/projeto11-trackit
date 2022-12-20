@@ -8,6 +8,7 @@ import context from "../context/Context";
 export default function HomePage() {
   const navigate = useNavigate();
   const { setConfig, setImagem } = useContext(context);
+  const [desabilita, setDesabilita] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -19,7 +20,7 @@ export default function HomePage() {
 
   function login(e) {
     e.preventDefault();
-
+    setDesabilita(true);
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
     const requisicao = axios.post(URL, form);
@@ -34,7 +35,9 @@ export default function HomePage() {
         navigate("/hoje")
       )
     );
-    requisicao.catch((err) => alert(err.response.data.message));
+    requisicao.catch(
+      (err) => (alert(err.response.data.message), setDesabilita(false))
+    );
   }
 
   return (
@@ -42,7 +45,9 @@ export default function HomePage() {
       <Logo src={logo} alt={"foto de TracKIt"} />
       <Login onSubmit={login}>
         <label>
-          <input data-test="email-input"
+          <input
+            data-test="email-input"
+            disabled={desabilita}
             type="email"
             name="email"
             onChange={handleForm}
@@ -53,7 +58,9 @@ export default function HomePage() {
           />
         </label>
         <label>
-          <input data-test="password-input"
+          <input
+            data-test="password-input"
+            disabled={desabilita}
             type="password"
             name="password"
             onChange={handleForm}
@@ -63,10 +70,14 @@ export default function HomePage() {
             placeholder="senha"
           />
         </label>
-        <Entrar data-test="login-btn" type="submit">Entrar</Entrar>
+        <Entrar disabled={desabilita} data-test="login-btn" type="submit">
+          Entrar
+        </Entrar>
       </Login>
       <p>
-        <Link data-test="signup-link" to={"/cadastro"}>Não tem uma conta? Cadastre-se!</Link>
+        <Link data-test="signup-link" to={"/cadastro"}>
+          Não tem uma conta? Cadastre-se!
+        </Link>
       </p>
     </Container>
   );
