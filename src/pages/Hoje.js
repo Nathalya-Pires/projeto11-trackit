@@ -65,7 +65,7 @@ export default function Hoje() {
       <ContainerHabitos>
         <Dia data-test="today">
         <h1>{dataFormatada}</h1>
-          {progresso === Number(0) ? (
+          {(progresso === 0) ? (
             <p>Nenhum hábito concluído ainda</p>
           ) : (
             <h2 data-test="today-counter">{progresso}% dos hábitos concluídos</h2>

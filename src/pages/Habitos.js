@@ -211,6 +211,7 @@ const Semana = styled.div`
 const Container = styled.div`
   background-color: #f2f2f2;
   width: 375px;
+  min-height: 667px;
   height: 100%;
   margin: 0 auto;
   display: flex;
