@@ -65,7 +65,7 @@ export default function Hoje() {
       <ContainerHabitos>
         <Dia data-test="today">
         <h1>{dataFormatada}</h1>
-          {progresso === 0 ? (
+          {progresso === Number(0) ? (
             <p>Nenhum hábito concluído ainda</p>
           ) : (
             <h2 data-test="today-counter">{progresso}% dos hábitos concluídos</h2>
@@ -79,10 +79,10 @@ export default function Hoje() {
               <ContainerTarefa>
                 <Tarefa data-test="today-habit-name">{d.name}</Tarefa>
                 <TextoFixo>Sequência atual:</TextoFixo>
-                <TextoApi data-test="today-habit-sequence" feito={d.done}> {d.currentSequence} dias</TextoApi>
+                <TextoApi1 data-test="today-habit-sequence" feito={d.done}> {d.currentSequence} dias</TextoApi1>
                 <br />
                 <TextoFixo>Seu recorde:</TextoFixo>
-                <TextoApi data-test="today-habit-record" feito={d.done}> {d.highestSequence} dias</TextoApi>
+                <TextoApi2 data-test="today-habit-record" atual={d.currentSequence} recorde={d.highestSequence}  feito={d.done}> {d.highestSequence} dias</TextoApi2>
               </ContainerTarefa>
 
               <Check data-test="today-habit-check-btn" feito={d.done}>
@@ -109,13 +109,22 @@ const TextoFixo = styled.span`
   color: #666666;
 `;
 
-const TextoApi = styled.span`
+const TextoApi1 = styled.span`
   font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   font-size: 12.98px;
   line-height: 16px;
   color: ${(props) => (props.feito === true ? "#8fc549" : "#666666")};
+`;
+
+const TextoApi2 = styled.span`
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12.98px;
+  line-height: 16px;
+  color: ${(props) => ((props.atual === props.recorde && props.recorde !== 0)? "#8fc549" : "#666666")};
 `;
 
 const ContainerTarefa = styled.div``;

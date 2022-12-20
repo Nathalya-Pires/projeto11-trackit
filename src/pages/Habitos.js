@@ -6,11 +6,12 @@ import { useContext, useState } from "react";
 import context from "../context/Context";
 import DiasSemana from "../components/DiasSemana";
 import ListaHabitos from "../components/ListaHabitos";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Habitos() {
   const semana = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [botaoAdd, setBotaoAdd] = useState(false);
-  const [desabilita, setDesabilita] = useState(false)
+  const [desabilita, setDesabilita] = useState(false);
   const { config, habitos, setHabitos } = useContext(context);
   const [body, setBody] = useState({
     name: "",
@@ -26,7 +27,7 @@ export default function Habitos() {
 
   function diaClicado(i) {
     if (body.days.includes(i)) {
-      const clicadoFilter = body.days.filter((day) => day !== i );
+      const clicadoFilter = body.days.filter((day) => day !== i);
       setBody({ ...body, days: clicadoFilter });
       console.log(body);
     } else {
@@ -42,16 +43,25 @@ export default function Habitos() {
 
   function enviaHabito(e) {
     e.preventDefault();
-    setDesabilita(true)
+    setDesabilita(true);
 
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
     const requisicao = axios.post(URL, body, config);
-    requisicao.then((res) => (limparInput(), setDesabilita(false), setBotaoAdd(false), console.log(res.data)));
-    requisicao.catch((err) => (alert(err.response.data.message), setDesabilita(false)));
+    requisicao.then(
+      (res) => (
+        limparInput(),
+        setDesabilita(false),
+        setBotaoAdd(false),
+        console.log(res.data)
+      )
+    );
+    requisicao.catch(
+      (err) => (alert(err.response.data.message), setDesabilita(false))
+    );
   }
-  console.log("habitos")
-    console.log(habitos)
+  console.log("habitos");
+  console.log(habitos);
 
   return (
     <Container>
@@ -59,45 +69,79 @@ export default function Habitos() {
       <ContainerHabitos>
         <Hab>
           <h1>Meus hábitos</h1>
-          <button data-test="habit-create-btn" onClick={() => setBotaoAdd(!botaoAdd)}>+</button>
+          <button
+            data-test="habit-create-btn"
+            onClick={() => setBotaoAdd(!botaoAdd)}
+          >
+            +
+          </button>
         </Hab>
-          { botaoAdd === true ?(<IncluirHab data-test="habit-create-container" onSubmit={enviaHabito}>
-          <input
-            required
-            disabled={desabilita}
-            type="text"
-            name="name"
-            onChange={handleBody}
-            value={body.name}
-            placeholder="nome do hábito"
-          />
-          <Semana>
-            {semana.map((s, i) => (
-              <DiasSemana 
-                key={i}
-                days={body.days}
-                diaClicado={diaClicado}
-                desabilita={desabilita}
-                i={i}
-                s={s}
-              />
-            ))}
-          </Semana>
-          <Botoes>
-            <Cancelar data-test="habit-create-cancel-btn" disabled={desabilita} onClick={() => setBotaoAdd(false)}>
-              Cancelar
-            </Cancelar>
-            <Salvar data-test="habit-create-save-btn" disabled={desabilita} type="submit">Salvar</Salvar>
-          </Botoes>
-        </IncluirHab>) : (null)}
-        <ListaHabitos botaoAdd={botaoAdd}/>
-     
+        {botaoAdd === true ? (
+          <IncluirHab data-test="habit-create-container" onSubmit={enviaHabito}>
+            <input
+              required
+              disabled={desabilita}
+              type="text"
+              name="name"
+              onChange={handleBody}
+              value={body.name}
+              placeholder="nome do hábito"
+            />
+            <Semana>
+              {semana.map((s, i) => (
+                <DiasSemana
+                  key={i}
+                  days={body.days}
+                  diaClicado={diaClicado}
+                  desabilita={desabilita}
+                  i={i}
+                  s={s}
+                />
+              ))}
+            </Semana>
+            <Botoes>
+              <Cancelar
+                data-test="habit-create-cancel-btn"
+                disabled={desabilita}
+                onClick={() => setBotaoAdd(false)}
+              >
+                Cancelar
+              </Cancelar>
+              {desabilita === false ? (
+                <Salvar
+                  data-test="habit-create-save-btn"
+                  disabled={desabilita}
+                  type="submit"
+                >
+                  Salvar
+                </Salvar>
+              ) : (
+                <Salvar
+                  data-test="habit-create-save-btn"
+                  disabled={desabilita}
+                  type="submit"
+                >
+                  <ThreeDots
+                    height="40"
+                    width="40"
+                    radius="9"
+                    color="#FFFFFF"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                  />
+                </Salvar>
+              )}
+            </Botoes>
+          </IncluirHab>
+        ) : null}
+        <ListaHabitos botaoAdd={botaoAdd} />
       </ContainerHabitos>
       <Menu data-test="menu" />
     </Container>
   );
 }
-
 
 const Botoes = styled.div`
   display: flex;
@@ -123,6 +167,9 @@ const Cancelar = styled.button`
 const Salvar = styled.button`
   background-color: #52b6ff;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const IncluirHab = styled.form`
   width: 340px;

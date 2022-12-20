@@ -9,7 +9,7 @@ export default function NavBar() {
   return (
     <Container data-test="header">
       <Logo src={trackIt} alt="TrackIt" />
-      <Foto img src={imagem} alt="nova fotinha" />
+      <Foto src={imagem} alt="nova fotinha" />
     </Container>
   );
 }

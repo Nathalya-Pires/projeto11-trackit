@@ -3,9 +3,10 @@ import logo from "../assets/logo.png";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Cadastro() {
-  const [desabilita, setDesabilita] = useState(false)
+  const [desabilita, setDesabilita] = useState(false);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -20,20 +21,23 @@ export default function Cadastro() {
 
   function enviaCadastro(e) {
     e.preventDefault();
-    setDesabilita(true)
+    setDesabilita(true);
 
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
     const requisicao = axios.post(URL, form);
     requisicao.then((res) => navigate("/"));
-    requisicao.catch((err) => (alert(err.response.data.message), setDesabilita(false)));
+    requisicao.catch(
+      (err) => (alert(err.response.data.message), setDesabilita(false))
+    );
   }
 
   return (
     <Container>
       <Logo src={logo} alt={"foto de TracKIt"} />
       <Dados onSubmit={enviaCadastro}>
-        <input data-test="email-input"
+        <input
+          data-test="email-input"
           disabled={desabilita}
           type="email"
           name="email"
@@ -43,7 +47,8 @@ export default function Cadastro() {
           required
           placeholder="email"
         />
-        <input data-test="password-input" 
+        <input
+          data-test="password-input"
           disabled={desabilita}
           type="password"
           name="password"
@@ -53,7 +58,8 @@ export default function Cadastro() {
           required
           placeholder="senha"
         />
-        <input data-test="user-name-input"
+        <input
+          data-test="user-name-input"
           disabled={desabilita}
           type="text"
           name="name"
@@ -63,7 +69,8 @@ export default function Cadastro() {
           required
           placeholder="nome"
         />
-        <input  data-test="user-image-input"
+        <input
+          data-test="user-image-input"
           disabled={desabilita}
           type="url"
           name="image"
@@ -72,10 +79,29 @@ export default function Cadastro() {
           required
           placeholder="foto"
         />
-        <Cadastrar disabled={desabilita} data-test="signup-btn" type="submit">Cadastrar</Cadastrar>
+        {desabilita === false ? (
+          <Cadastrar disabled={desabilita} data-test="signup-btn" type="submit">
+            Cadastrar
+          </Cadastrar>
+        ) : (
+          <Cadastrar disabled={desabilita} data-test="signup-btn" type="submit">
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#FFFFFF"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          </Cadastrar>
+        )}
       </Dados>
       <p>
-        <Link data-test="login-link" to={"/"}>Já tem uma conta? Faça login!</Link>
+        <Link data-test="login-link" to={"/"}>
+          Já tem uma conta? Faça login!
+        </Link>
       </p>
     </Container>
   );
@@ -141,6 +167,9 @@ const Cadastrar = styled.button`
   background: #52b6ff;
   border: none;
   border-radius: 4.64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   font-family: "Lexend Deca";
   font-style: normal;

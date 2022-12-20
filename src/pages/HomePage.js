@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 import axios from "axios";
 import { useContext, useState } from "react";
 import context from "../context/Context";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -70,9 +71,24 @@ export default function HomePage() {
             placeholder="senha"
           />
         </label>
-        <Entrar disabled={desabilita} data-test="login-btn" type="submit">
-          Entrar
-        </Entrar>
+        {desabilita === false ? (
+          <Entrar disabled={desabilita} data-test="login-btn" type="submit">
+            Entrar
+          </Entrar>
+        ) : (
+          <Entrar disabled={desabilita} data-test="login-btn" type="submit">
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#FFFFFF"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          </Entrar>
+        )}
       </Login>
       <p>
         <Link data-test="signup-link" to={"/cadastro"}>
@@ -140,6 +156,9 @@ const Entrar = styled.button`
   background: #52b6ff;
   border: none;
   border-radius: 4.64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   font-family: "Lexend Deca";
   font-style: normal;
@@ -148,6 +167,7 @@ const Entrar = styled.button`
   line-height: 26px;
   text-align: center;
   color: #ffffff;
+
 
   a {
     color: inherit;
