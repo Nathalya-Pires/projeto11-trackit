@@ -47,14 +47,14 @@ export default function ListaHabitos({ botaoAdd }) {
         </NoHab>
       ) : (
         habitos.map((h, i) => (
-          <ListaHab key={h.id}>
+          <ListaHab data-test="habit-container" key={h.id}>
             <Tarefas>
-              <Tarefa>{h.name}</Tarefa>
-              <img onClick={() => Delete(h.id)} src={vetor} alt="Lixeira" />
+              <Tarefa data-test="habit-name">{h.name}</Tarefa>
+              <img data-test="habit-delete-btn" onClick={() => Delete(h.id)} src={vetor} alt="Lixeira" />
             </Tarefas>
             <Semana>
               {semana.map((d, i) => (
-                <Dia key={i} selecionado={h.days.includes(i)}>
+                <Dia data-test="habit-day" key={i} selecionado={h.days.includes(i)}>
                   {d}
                 </Dia>
               ))}

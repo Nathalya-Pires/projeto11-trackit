@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function DiasSemana({ diaClicado, i, s, days, desabilita }) {
 
   return (
-    <Dia type="button"
+    <Dia data-test="habit-day" type="button"
       days={days}
       i={i}
       onClick={() => (diaClicado(i))}

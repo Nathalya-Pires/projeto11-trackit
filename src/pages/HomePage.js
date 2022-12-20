@@ -42,7 +42,7 @@ export default function HomePage() {
       <Logo src={logo} alt={"foto de TracKIt"} />
       <Login onSubmit={login}>
         <label>
-          <input
+          <input data-test="email-input"
             type="email"
             name="email"
             onChange={handleForm}
@@ -53,7 +53,7 @@ export default function HomePage() {
           />
         </label>
         <label>
-          <input
+          <input data-test="password-input"
             type="password"
             name="password"
             onChange={handleForm}
@@ -63,10 +63,10 @@ export default function HomePage() {
             placeholder="senha"
           />
         </label>
-        <Entrar type="submit">Entrar</Entrar>
+        <Entrar data-test="login-btn" type="submit">Entrar</Entrar>
       </Login>
       <p>
-        <Link to={"/cadastro"}>Não tem uma conta? Cadastre-se!</Link>
+        <Link data-test="signup-link" to={"/cadastro"}>Não tem uma conta? Cadastre-se!</Link>
       </p>
     </Container>
   );

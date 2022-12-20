@@ -3,44 +3,127 @@ import NavBar from "../components/NavBar";
 import IonIcon from "@reacticons/ionicons";
 import Menu from "../components/Menu";
 import context from "../context/Context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 
 export default function Hoje() {
-  const {config} = useContext(context)
+  const { config, progresso, setProgresso } = useContext(context);
+  const [atualizar, setAtualizar] = useState(true);
+  const [dia, setDia] = useState(undefined);
+  const data = dayjs()
+    .locale("pt-br")
+    .format("dddd, DD/MM")
+    .replace("-feira", "");
+  const dataFormatada = data.charAt(0).toUpperCase() + data.slice(1);
+
+  useEffect(() => {
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
+    const requisicao = axios.get(URL, config);
+    requisicao.then(
+      (res) => (setDia(res.data), console.log("setDia"), console.log(res.data))
+    );
+    requisicao.catch((err) => alert(err.response.data.message));
+  }, [atualizar]);
+
+  useEffect(() => {
+    console.log("dia");
+    console.log(dia);
+    if (dia) {
+      const contador = dia.reduce(
+        (contador, obj) => (obj.done === true ? (contador += 1) : contador),
+        0
+      );
+      setProgresso(contador * (100 / dia.length));
+      console.log("contador");
+      console.log(contador);
+    }
+  }, [atualizar, dia]);
+
+  console.log("progresso");
+  console.log(progresso);
+
+  function marcarFeito(id, feito) {
+    if (feito === false) {
+      const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`;
+      const requisicao = axios.post(URL, { body: {} }, config);
+      requisicao.then((res) => setAtualizar(!atualizar));
+      requisicao.catch((err) => alert(err.response.data.message));
+    } else {
+      const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`;
+      const requisicao = axios.post(URL, { body: {} }, config);
+      requisicao.then((res) => setAtualizar(!atualizar));
+      requisicao.catch((err) => alert(err.response.data.message));
+    }
+  }
 
   return (
-    
-      <Container>
-        <NavBar />
-        <ContainerHabitos>
-          <Dia>
-            <h1>Segunda, 17/05</h1>
+    <Container>
+      <NavBar data-test="header" />
+      <ContainerHabitos>
+        <Dia data-test="today">
+        <h1>{dataFormatada}</h1>
+          {progresso === 0 ? (
             <p>Nenhum hábito concluído ainda</p>
-          </Dia>
-          <ListaHab>
-            <ContainerTarefa>
-              <Tarefa>Ler 1 capítulo de livro</Tarefa>
-              <p>Sequência atual: 3 dias</p>
-              <p>Seu recorde: 5 dias</p>
-            </ContainerTarefa>
+          ) : (
+            <h2 data-test="today-counter">{progresso}% dos hábitos concluídos</h2>
+          )}
+        </Dia>
+        {dia === undefined || dia.length === 0 ? (
+          <div>Carregando...</div>
+        ) : (
+          dia.map((d) => (
+            <ListaHab data-test="today-habit-container" key={d.id}>
+              <ContainerTarefa>
+                <Tarefa data-test="today-habit-name">{d.name}</Tarefa>
+                <TextoFixo data-test="today-habit-sequence">Sequência atual:</TextoFixo>
+                <TextoApi feito={d.done}> {d.currentSequence} dias</TextoApi>
+                <br />
+                <TextoFixo data-test="today-habit-record">Seu recorde:</TextoFixo>
+                <TextoApi feito={d.done}> {d.highestSequence} dias</TextoApi>
+              </ContainerTarefa>
 
-            <Check>
-              <IonIcon name="checkbox" />
-            </Check>
-          </ListaHab>
-        </ContainerHabitos>
-        <Menu />
-      </Container>
-    
+              <Check data-test="today-habit-check-btn" feito={d.done}>
+                <IonIcon 
+                  onClick={() => marcarFeito(d.id, d.done)}
+                  name="checkbox"
+                />
+              </Check>
+            </ListaHab>
+          ))
+        )}
+      </ContainerHabitos>
+      <Menu data-test="menu" />
+    </Container>
   );
 }
+
+const TextoFixo = styled.span`
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12.98px;
+  line-height: 16px;
+  color: #666666;
+`;
+
+const TextoApi = styled.span`
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12.98px;
+  line-height: 16px;
+  color: ${(props) => (props.feito === true ? "#8fc549" : "#666666")};
+`;
 
 const ContainerTarefa = styled.div``;
 const Check = styled.div`
   display: flex;
   align-items: center;
   font-size: 79px;
-  color: #8fc549;
+  color: ${(props) => (props.feito === true ? "#8fc549" : "#EBEBEB")};
   border-radius: 5px;
 `;
 const Container = styled.div`
@@ -85,6 +168,10 @@ const Dia = styled.div`
     font-size: 23px;
     line-height: 29px;
     color: #126ba5;
+  }
+
+  h2 {
+    color: #8fc549;
   }
 
   p {

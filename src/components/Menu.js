@@ -2,19 +2,21 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import context from "../context/Context";
+import { useContext } from "react";
 
 export default function Menu() {
-  const hoje = 55;
+  const {progresso} = useContext(context);
 
   return (
     <Container>
       <Habitos>
-        <Link to={"/habitos"}>Hábitos</Link>
+        <Link data-test="habit-link" to={"/habitos"}>Hábitos</Link>
       </Habitos>
       <Link to={"/hoje"}>
-        <Hoje>
+        <Hoje data-test="today-link">
           <CircularProgressbar
-            value={hoje}
+            value={progresso}
             text={`Hoje`}
             background
             backgroundPadding={5}
@@ -29,7 +31,7 @@ export default function Menu() {
         </Hoje>
       </Link>
       <Historico>
-        <Link to={"/historico"}> Histórico </Link>
+        <Link data-test="history-link" to={"/historico"}> Histórico </Link>
       </Historico>
     </Container>
   );

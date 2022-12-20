@@ -55,13 +55,13 @@ export default function Habitos() {
 
   return (
     <Container>
-      <NavBar />
+      <NavBar data-test="header" />
       <ContainerHabitos>
         <Hab>
           <h1>Meus hábitos</h1>
-          <button onClick={() => setBotaoAdd(!botaoAdd)}>+</button>
+          <button data-test="habit-create-btn" onClick={() => setBotaoAdd(!botaoAdd)}>+</button>
         </Hab>
-          { botaoAdd === true ?(<IncluirHab onSubmit={enviaHabito}>
+          { botaoAdd === true ?(<IncluirHab data-test="habit-create-container" onSubmit={enviaHabito}>
           <input
             disabled={desabilita}
             type="text"
@@ -83,21 +83,16 @@ export default function Habitos() {
             ))}
           </Semana>
           <Botoes>
-            <Cancelar disabled={desabilita} onClick={() => setBotaoAdd(false)}>
+            <Cancelar data-test="habit-create-cancel-btn" disabled={desabilita} onClick={() => setBotaoAdd(false)}>
               Cancelar
             </Cancelar>
-            <Salvar disabled={desabilita} type="submit">Salvar</Salvar>
+            <Salvar data-test="habit-create-save-btn" disabled={desabilita} type="submit">Salvar</Salvar>
           </Botoes>
         </IncluirHab>) : (null)}
         <ListaHabitos botaoAdd={botaoAdd}/>
-         
-        
-              
-        
-
-
+     
       </ContainerHabitos>
-      <Menu />
+      <Menu data-test="menu" />
     </Container>
   );
 }

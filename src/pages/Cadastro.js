@@ -31,7 +31,7 @@ export default function Cadastro() {
     <Container>
       <Logo src={logo} alt={"foto de TracKIt"} />
       <Dados onSubmit={enviaCadastro}>
-        <input
+        <input data-test="email-input"
           type="email"
           name="email"
           onChange={handleForm}
@@ -40,7 +40,7 @@ export default function Cadastro() {
           required
           placeholder="email"
         />
-        <input
+        <input data-test="password-input" 
           type="password"
           name="password"
           onChange={handleForm}
@@ -49,7 +49,7 @@ export default function Cadastro() {
           required
           placeholder="senha"
         />
-        <input
+        <input data-test="user-name-input"
           type="text"
           name="name"
           onChange={handleForm}
@@ -58,7 +58,7 @@ export default function Cadastro() {
           required
           placeholder="nome"
         />
-        <input
+        <input  data-test="user-image-input"
           type="url"
           name="image"
           onChange={handleForm}
@@ -66,10 +66,10 @@ export default function Cadastro() {
           required
           placeholder="foto"
         />
-        <Cadastrar type="submit">Cadastrar</Cadastrar>
+        <Cadastrar data-test="signup-btn" type="submit">Cadastrar</Cadastrar>
       </Dados>
       <p>
-        <Link to={"/"}>Já tem uma conta? Faça login!</Link>
+        <Link data-test="login-link" to={"/"}>Já tem uma conta? Faça login!</Link>
       </p>
     </Container>
   );

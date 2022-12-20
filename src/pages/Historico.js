@@ -5,14 +5,14 @@ import NavBar from "../components/NavBar";
 export default function Historico() {
   return (
     <Container>
-      <NavBar />
+      <NavBar data-test="header" />
       <ContainerHistorico>
         <Hist>
           <h1>Histórico</h1>
         </Hist>
         <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
       </ContainerHistorico>
-      <Menu />
+      <Menu data-test="menu" />
     </Container>
   );
 }
