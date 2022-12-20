@@ -7,7 +7,7 @@ import context from "../context/Context";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { config, setConfig, setImagem } = useContext(context);
+  const { setConfig, setImagem } = useContext(context);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -75,7 +75,7 @@ export default function HomePage() {
 const Container = styled.div`
   background-color: #ffffff;
   width: 375px;
-  height: 667px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

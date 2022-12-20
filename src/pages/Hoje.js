@@ -9,7 +9,7 @@ export default function Hoje() {
   const {config} = useContext(context)
 
   return (
-    <>
+    
       <Container>
         <NavBar />
         <ContainerHabitos>
@@ -31,7 +31,7 @@ export default function Hoje() {
         </ContainerHabitos>
         <Menu />
       </Container>
-    </>
+    
   );
 }
 
@@ -46,7 +46,8 @@ const Check = styled.div`
 const Container = styled.div`
   background-color: #f2f2f2;
   width: 375px;
-  height: 667px;
+  min-height: 667px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

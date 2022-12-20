@@ -19,7 +19,7 @@ export default function Cadastro() {
 
   function enviaCadastro(e) {
     e.preventDefault();
-    console.log(form);
+
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
     const requisicao = axios.post(URL, form);
@@ -68,7 +68,9 @@ export default function Cadastro() {
         />
         <Cadastrar type="submit">Cadastrar</Cadastrar>
       </Dados>
-      <p><Link to={"/"}>Já tem uma conta? Faça login!</Link></p>
+      <p>
+        <Link to={"/"}>Já tem uma conta? Faça login!</Link>
+      </p>
     </Container>
   );
 }
