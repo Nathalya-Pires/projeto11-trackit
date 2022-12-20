@@ -1,23 +1,73 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import axios from "axios";
+import { useContext, useState } from "react";
+import context from "../context/Context";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const { config, setConfig, setImagem } = useContext(context);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  function handleForm(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function login(e) {
+    e.preventDefault();
+
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+    const requisicao = axios.post(URL, form);
+    requisicao.then(
+      (res) => (
+        setImagem(res.data.image),
+        setConfig({
+          headers: {
+            Authorization: `Bearer ${res.data.token}`,
+          },
+        }),
+        navigate("/hoje")
+      )
+    );
+    requisicao.catch((err) => alert(err.response.data.message));
+  }
+
   return (
     <Container>
       <Logo src={logo} alt={"foto de TracKIt"} />
-      <Login>
+      <Login onSubmit={login}>
         <label>
-          <input type="email" minLength={5} required placeholder="email" />
+          <input
+            type="email"
+            name="email"
+            onChange={handleForm}
+            value={form.email}
+            minLength={5}
+            required
+            placeholder="email"
+          />
         </label>
         <label>
-          <input type="password" minLength={5} required placeholder="senha" />
+          <input
+            type="password"
+            name="password"
+            onChange={handleForm}
+            value={form.password}
+            minLength={5}
+            required
+            placeholder="senha"
+          />
         </label>
-        <Entrar>
-          <Link to="/hoje">Entrar</Link>
-        </Entrar>
+        <Entrar type="submit">Entrar</Entrar>
       </Login>
-      <p>Não tem uma conta? Cadastre-se!</p>
+      <p>
+        <Link to={"/cadastro"}>Não tem uma conta? Cadastre-se!</Link>
+      </p>
     </Container>
   );
 }
@@ -88,9 +138,7 @@ const Entrar = styled.button`
   text-align: center;
   color: #ffffff;
 
-  a{
-    color:inherit;
+  a {
+    color: inherit;
   }
-
-
 `;

@@ -1,18 +1,74 @@
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Cadastro() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    name: "",
+    image: "",
+  });
+
+  function handleForm(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function enviaCadastro(e) {
+    e.preventDefault();
+    console.log(form);
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+    const requisicao = axios.post(URL, form);
+    requisicao.then((res) => navigate("/"));
+    requisicao.catch((err) => alert(err.response.data.message));
+  }
+
   return (
     <Container>
       <Logo src={logo} alt={"foto de TracKIt"} />
-      <Dados>
-          <input type="email" minLength={5} required placeholder="email" />
-          <input type="password" minLength={5} required placeholder="senha" />
-          <input type="text" minLength={5} required placeholder="nome" />
-          <input type="URL" minLength={5} required placeholder="foto" />
-        </Dados>
-      <Cadastrar>Cadastrar</Cadastrar>
-      <p>Já tem uma conta? Faça login!</p>
+      <Dados onSubmit={enviaCadastro}>
+        <input
+          type="email"
+          name="email"
+          onChange={handleForm}
+          value={form.email}
+          minLength={5}
+          required
+          placeholder="email"
+        />
+        <input
+          type="password"
+          name="password"
+          onChange={handleForm}
+          value={form.password}
+          minLength={5}
+          required
+          placeholder="senha"
+        />
+        <input
+          type="text"
+          name="name"
+          onChange={handleForm}
+          value={form.name}
+          minLength={5}
+          required
+          placeholder="nome"
+        />
+        <input
+          type="url"
+          name="image"
+          onChange={handleForm}
+          value={form.image}
+          required
+          placeholder="foto"
+        />
+        <Cadastrar type="submit">Cadastrar</Cadastrar>
+      </Dados>
+      <p><Link to={"/"}>Já tem uma conta? Faça login!</Link></p>
     </Container>
   );
 }

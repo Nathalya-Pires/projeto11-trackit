@@ -2,8 +2,12 @@ import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import IonIcon from "@reacticons/ionicons";
 import Menu from "../components/Menu";
+import context from "../context/Context";
+import { useContext } from "react";
 
 export default function Hoje() {
+  const {config} = useContext(context)
+
   return (
     <>
       <Container>
