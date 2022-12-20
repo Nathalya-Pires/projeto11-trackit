@@ -11,7 +11,7 @@ export default function Habitos() {
   const semana = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [botaoAdd, setBotaoAdd] = useState(false);
   const [desabilita, setDesabilita] = useState(false)
-  const { config } = useContext(context);
+  const { config, habitos, setHabitos } = useContext(context);
   const [body, setBody] = useState({
     name: "",
     days: [],
@@ -50,7 +50,8 @@ export default function Habitos() {
     requisicao.then((res) => (limparInput(), setDesabilita(false), setBotaoAdd(false), console.log(res.data)));
     requisicao.catch((err) => (alert(err.response.data.message), setDesabilita(false)));
   }
-
+  console.log("habitos")
+    console.log(habitos)
 
   return (
     <Container>
@@ -88,14 +89,11 @@ export default function Habitos() {
             <Salvar disabled={desabilita} type="submit">Salvar</Salvar>
           </Botoes>
         </IncluirHab>) : (null)}
-        <NoHab>
-          <p>
-            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-            começar a trackear!
-          </p>
-        </NoHab>
-              
         <ListaHabitos botaoAdd={botaoAdd}/>
+         
+        
+              
+        
 
 
       </ContainerHabitos>
@@ -207,13 +205,4 @@ const Hab = styled.div`
     line-height: 34px;
     color: #ffffff;
   }
-`;
-const NoHab = styled.div`
-  font-family: "Lexend Deca";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22.5px;
-  color: #666666;
-  margin-top: 28px;
 `;

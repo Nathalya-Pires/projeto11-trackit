@@ -5,8 +5,7 @@ import axios from "axios";
 import vetor from "../assets/vetor.png";
 
 export default function ListaHabitos({ botaoAdd }) {
-  const [habitos, setHabitos] = useState(undefined);
-  const { config } = useContext(context);
+  const { config, habitos, setHabitos } = useContext(context);
   const [atualizar, setAtualizar] = useState(true);
   const semana = ["D", "S", "T", "Q", "Q", "S", "S"];
 
@@ -39,25 +38,34 @@ export default function ListaHabitos({ botaoAdd }) {
 
   return (
     <>
-      {habitos.map((h, i) => (
-        <ListaHab key={h.id}>
-          <Tarefas>
-            <Tarefa>{h.name}</Tarefa>
-            <img onClick={() => Delete(h.id)} src={vetor} alt="Lixeira" />
-          </Tarefas>
-
-          <Semana>
-            {semana.map((d, i) => (
-              <Dia key={i} selecionado={h.days.includes(i)}>
-                {d}
-              </Dia>
-            ))}
-          </Semana>
-        </ListaHab>
-      ))}
+      {habitos.length === 0 ? (
+        <NoHab>
+          <p>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+            começar a trackear!
+          </p>
+        </NoHab>
+      ) : (
+        habitos.map((h, i) => (
+          <ListaHab key={h.id}>
+            <Tarefas>
+              <Tarefa>{h.name}</Tarefa>
+              <img onClick={() => Delete(h.id)} src={vetor} alt="Lixeira" />
+            </Tarefas>
+            <Semana>
+              {semana.map((d, i) => (
+                <Dia key={i} selecionado={h.days.includes(i)}>
+                  {d}
+                </Dia>
+              ))}
+            </Semana>
+          </ListaHab>
+        ))
+      )}
     </>
   );
 }
+
 
 const Tarefas = styled.div`
   display: flex;
@@ -109,3 +117,13 @@ const Semana = styled.div`
   display: flex;
   margin-bottom: 30px;
 `;
+const NoHab = styled.div`
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22.5px;
+  color: #666666;
+  margin-top: 28px;
+`;
+

@@ -5,12 +5,14 @@ const context = createContext();
 export function UserProvider({ children }) {
   const [config, setConfig] = useState({});
   const [imagem, setImagem] = useState({});
+  const [habitos, setHabitos] = useState(undefined);
 
   return (
     <context.Provider 
     value={{ 
         config, setConfig, 
-        imagem, setImagem 
+        imagem, setImagem,
+        habitos, setHabitos
         }}>
 
       {children}
