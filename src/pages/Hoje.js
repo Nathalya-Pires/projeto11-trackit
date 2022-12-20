@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import NavBar from "../components/NavBar";
 import IonIcon from "@reacticons/ionicons";
-import Menu from "../components/Menu";
-import context from "../context/Context";
-import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
+import { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
+import Menu from "../components/Menu";
+import NavBar from "../components/NavBar";
+import context from "../context/Context";
 
 export default function Hoje() {
   const { config, progresso, setProgresso } = useContext(context);
@@ -144,7 +144,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  padding: 70px 0 120px 0;
 `;
 const ListaHab = styled.div`
   display: flex;

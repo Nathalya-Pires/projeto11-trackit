@@ -20,12 +20,13 @@ export default function Historico() {
 const Container = styled.div`
   background-color: #f2f2f2;
   width: 375px;
-  height: 667px;
+  min-height: 667px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  padding: 70px 0 120px 0;
 `;
 
 const ContainerHistorico = styled.div`
